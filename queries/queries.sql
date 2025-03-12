@@ -1,0 +1,191 @@
+SELECT 
+    Sale_Date, 
+    Region, 
+    AVG(Discount) AS Avg_Discount, 
+    SUM(Sales_Amount) AS Total_Revenue
+FROM sales_data
+GROUP BY Sale_Date, Region
+ORDER BY Sale_Date DESC, Total_Revenue DESC;
+
+/*
+CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO GET TOTAL TRANSACTIONS AND REVENUE
+*/
+
+SELECT 
+    SUM(Sales_Amount) AS Total_Revenue, 
+    COUNT(*) AS Total_Transactions 
+FROM sales_data;
+
+
+CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO GET SALES OVER TIME(MONTHLY SALES)
+*/
+
+SELECT 
+    strftime('%Y-%m', Sale_Date) AS Month, 
+    SUM(Sales_Amount) AS Monthly_Revenue
+FROM sales_data
+GROUP BY Month
+ORDER BY Month;
+
+/*
+CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: BEST SELLING PRODUCTS( TO SHOW TOP 10 PRODUCTS BY REVENUE)
+*/
+
+
+SELECT 
+    Product_ID, 
+    COUNT(*) AS Sales_Count, 
+    SUM(Sales_Amount) AS Total_Revenue
+FROM sales_data
+GROUP BY Product_ID
+ORDER BY Total_Revenue DESC
+LIMIT 10;
+
+
+/*
+CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: SALES BY REGION( TO SHOW REGIONS PERFORMANCE IN SALES)
+*/
+
+SELECT 
+    Region, 
+    SUM(Sales_Amount) AS Regional_Revenue
+FROM sales_data
+GROUP BY Region
+ORDER BY Regional_Revenue DESC;
+
+/*
+CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: DAILY SALES TREND(IDENTIFY HIGH AND LOW SALES DAYS)
+*/
+
+SELECT 
+    Sale_Date, 
+    SUM(Sales_Amount) AS Daily_Revenue
+FROM sales_data
+GROUP BY Sale_Date
+ORDER BY Daily_Revenue DESC;
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO KNOW THE BEST SELLING PRODUCTS ON THE HIGHEST SALES DAY
+*/
+
+SELECT 
+    Product_ID, 
+    SUM(Sales_Amount) AS Total_Revenue, 
+    COUNT(*) AS Sales_Count
+FROM sales_data
+WHERE Sale_Date = '2023-10-20'
+GROUP BY Product_ID
+ORDER BY Total_Revenue DESC;
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO KNOW THE CUSTOMER THAT BOUGHT THESE PRODUCTS ON THIS HIGHEST SALES DAY
+*/
+
+SELECT 
+    Customer_Type, 
+    COUNT(*) AS Total_Orders, 
+    SUM(Sales_Amount) AS Total_Revenue
+FROM sales_data
+WHERE Sale_Date = '2023-10-20'
+GROUP BY Customer_Type
+ORDER BY Total_Revenue DESC;
+
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO CHECK IF THE RETURNING CUSTOMERS BUY HIGH-VALUE PRODUCTS
+*/
+
+SELECT 
+    Customer_Type,
+    Product_ID, 
+    SUM(Sales_Amount) AS Total_Revenue, 
+    COUNT(*) AS Sales_Count
+FROM sales_data
+WHERE Sale_Date = '2023-10-20'
+GROUP BY Customer_Type, Product_ID
+ORDER BY Customer_Type, Total_Revenue DESC;
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO CHECK IF DISCOUNTS AFFECTED THE HIGH-VALUE PURCHASES
+*/
+
+SELECT 
+    Customer_Type, 
+    Product_ID, 
+    Discount, 
+    Sales_Amount
+FROM sales_data
+WHERE Sale_Date = '2023-10-20'
+ORDER BY Customer_Type, Sales_Amount DESC;
+
+
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO CHECK THE REGIONS THAT THESE CUSTOMERS THAT CONTRIBUTED TO THE HIGHEST SALES ARE BASED
+*/
+SELECT 
+    Customer_Type, 
+    Region, 
+    SUM(Sales_Amount) AS Total_Revenue
+FROM sales_data
+WHERE Sale_Date = '2023-10-20'
+GROUP BY Customer_Type, Region
+ORDER BY Customer_Type, Total_Revenue DESC;
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO CHECK IF DISCOUNTS VARY BY REGION
+*/
+
+SELECT 
+    Region, 
+    AVG(Discount) AS Avg_Discount, 
+    SUM(Sales_Amount) AS Total_Revenue
+FROM sales_data
+WHERE Sale_Date = '2023-10-20'
+GROUP BY Region
+ORDER BY Total_Revenue DESC;
+
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO CHECK IF REGIONS WITH HIGHER DISCOUNTS ALSO BRING HIGHER SALES TRANSACTIONS
+*/
+
+SELECT 
+    Region, 
+    COUNT(*) AS Transaction_Count, 
+    AVG(Discount) AS Avg_Discount
+FROM sales_data
+WHERE Sale_Date = '2023-10-20'
+GROUP BY Region
+ORDER BY Transaction_Count DESC;
+
+/*CREATED BY: OLUBUNMI ADEOLU
+CREATE DATE: 03/12/2025
+DESCRIPTION: TO CHECK HOW DISCOUNTS AFFECTED THE SALES ACROSS ALL DATES
+*/
+
+SELECT 
+    Sale_Date, 
+    Region, 
+    AVG(Discount) AS Avg_Discount, 
+    SUM(Sales_Amount) AS Total_Revenue
+FROM sales_data
+GROUP BY Sale_Date, Region
+ORDER BY Sale_Date DESC, Total_Revenue DESC;
